@@ -1,7 +1,9 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.input.mouse.FlxMouseEventManager;
 import flixel.text.FlxText;
 import source.Background;
 import source.DialogBox;
@@ -19,12 +21,15 @@ class PlayState extends FlxState
 	{
 		background = new Background(0, 0);
 		add(background);
-		dialogBox = new DialogBox(0, Std.int(FlxG.height * 0.8));
+		dialogBox = new DialogBox();
 		add(dialogBox);
 		menu = new GameMenu(Std.int(FlxG.width * 0.8), 0);
+		add(menu);
 		npc = new NPC(Std.int(FlxG.width * 0.3), Std.int(FlxG.width * 0.3));
 		add(npc);
-		add(menu);
+		
+		//setup mouseEvents
+		FlxMouseEventManager.add(npc, onNpcMouseDown, onNpcMouseUp, onNpcMouseOver, onNpcMouseOut); 
 		
 		super.create();
 	}
@@ -33,4 +38,13 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 	}
+	
+	function onNpcMouseDown(npc:NPC)
+	{
+		dialogBox.setDialog("Hello Adventurer!");
+	}
+	
+	function onNpcMouseUp(npc:NPC) {}
+	function onNpcMouseOver(npc:NPC) {}
+	function onNpcMouseOut(npc:NPC) {}
 }
